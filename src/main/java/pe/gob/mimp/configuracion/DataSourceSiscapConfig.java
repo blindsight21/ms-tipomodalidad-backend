@@ -10,6 +10,7 @@ import org.eclipse.persistence.config.BatchWriting;
 import org.eclipse.persistence.config.PersistenceUnitProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
@@ -91,6 +92,7 @@ public class DataSourceSiscapConfig{
 	}
 
 	@Bean(name = "siscapTransactionManager")
+        @ConditionalOnMissingBean(PlatformTransactionManager.class)
 	public PlatformTransactionManager productTransactionManager(
 			@Qualifier("siscapEntityManagerFactory") EntityManagerFactory siscapEntityManagerFactory) {
 
